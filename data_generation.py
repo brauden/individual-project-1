@@ -5,8 +5,11 @@ from functools import partial
 
 def generate_table1() -> pd.DataFrame:
     """
-
-    :return:
+    generate_table() creates pandas DataFrame
+    with randomly generated data.
+    Number of columns varies from 3 to 7, number of rows from 500 to 2999
+    Used distributions are standard normal, poisson, binomial and exponential.
+    :return: pd.DataFrame with random data
     """
     n_cols = np.random.randint(3, 8)
     n_rows = np.random.randint(500, 3000)
@@ -19,6 +22,7 @@ def generate_table1() -> pd.DataFrame:
     d_dict = {k: v for k, v in zip(col_names, data)}
     data_frame = pd.DataFrame(d_dict)
 
+    # Randomly assign missing values:
     for col in data_frame.columns:
         data_frame.loc[data_frame.sample(frac=0.1).index, col] = np.nan
 
@@ -27,8 +31,8 @@ def generate_table1() -> pd.DataFrame:
 
 def generate_table2() -> pd.DataFrame:
     """
-
-    :return:
+    generate_table2() - creates pandas DataFrame with categorical data
+    :return: pd.DataFrame with randomly assigned categorical data
     """
     groups = ['A', 'B', 'C', 'D', 'E']
     n_rows = np.random.randint(300, 800)
@@ -40,8 +44,9 @@ def generate_table2() -> pd.DataFrame:
 
 def join_tables() -> pd.DataFrame:
     """
-
-    :return:
+    join_tables() - joins the results from generate_table1() and
+    generate_table2() and drops missing values from generate_table1()
+    :return: merged pd.DataFrame
     """
     table1 = generate_table1()
     table1.dropna(axis=0, inplace=True)
@@ -50,11 +55,12 @@ def join_tables() -> pd.DataFrame:
     return result
 
 
-def json_return():
+def json_return(include: str):
     """
-
-    :return:
+    json_return() - converts pandas DataFrame to json
+    :param include: valid options are "all", "float", "integer", "number"
+    :return: json file with data description
     """
     table = join_tables()
-    table_stat = table.describe().to_json()
+    table_stat = table.describe(include=include).to_json()
     return table_stat
