@@ -64,3 +64,9 @@ def json_return(include: str):
     table = join_tables()
     table_stat = table.describe(include=include).to_json()
     return table_stat
+
+
+def json_return_user_file(file, include: str):
+    df = pd.read_csv(file)
+    df_stat = df.describe(include=include).to_json()
+    return df_stat
