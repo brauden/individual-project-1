@@ -3,4 +3,6 @@
 ### This is a simple FastAPI application which generates random data or receives csv file and returns json with data stats.
 
 to run the app: python app.py\
-to check docs: http://0.0.0.0:8501/docs
+to check docs: http://0.0.0.0:8080/docs
+
+https://datastat-yhotqnvwaq-ue.a.run.app
