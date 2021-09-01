@@ -7,5 +7,5 @@ RUN apt-get update && \
 RUN git clone https://github.com/brauden/individual-project-1.git
 WORKDIR individual-project-1
 RUN make install
-EXPOSE 8501
+EXPOSE 8080
 CMD python app.py
